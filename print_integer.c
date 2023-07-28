@@ -24,11 +24,18 @@ int print_integer(va_list list)
 			j++;
 	}
 
+<<<<<<< HEAD
 	while (j >= 0)
 	{
 		c[0] = ('0' + specifier_array[j]);
 		count += write(1, c, 1);
 		j--;
+=======
+	for (j; j >= 0; j--)
+	{
+		c[0] = ('0' + specifier_array[j]);
+		count += write(1, c, 1);
+>>>>>>> refs/remotes/origin/master
 	}
 	return (count);
 }
