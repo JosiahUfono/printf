@@ -1,15 +1,5 @@
 #ifndef MAIN_H
 #define MAIN_H
-<<<<<<< HEAD
-
-#include <stdarg.h>
-
-int _putchar(char c);
-int _printf(const char *format, ...);
-
-#endif /* MAIN_H */
-
-=======
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -32,6 +22,8 @@ typedef struct functn
 int print_char(va_list);
 int print_str(va_list);
 int print_pcent(va_list);
+int print_integer(va_list);
+int print_decimal(va_list);
+int print_unknown(va_list);
 
 #endif
->>>>>>> refs/remotes/origin/master
