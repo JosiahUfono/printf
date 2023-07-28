@@ -1,58 +1,49 @@
-#include <stdarg.h>
-#include <unistd.h>
 #include "main.h"
-
-int _putchar(char c);
-
+/**
+ *  _printf - prints a formatted string
+ *  @format: input string which each character would be iterated through
+ *  Return: returns number of characters printed (count).
+*/
 int _printf(const char *format, ...)
 {
-	va_list args;
-	int printed_chars = 0;
-	char *str_arg, c;
+int j = 0, count = 0, temp = 0, val = 0;
+int (*functnptr)(va_list);
+va_list list;
+va_start(list, format);
 
-	va_start(args, format);
-	while (*format)
+
+	if (format == NULL)
+		return (-1);
+	while (format[j])
 	{
-		if (*format == '%')
+		if (format[j] != '%')
 		{
-			format++;
-			switch (*format)
+			temp = write(1, &format[j], 1);
+			count += temp;
+			j++;
+			continue;
+		}
+
+		if (format[j] == '%')
+		{
+			functnptr = specifier_checker(&format[j + 1]);
+			if (functnptr != NULL)
 			{
-			case 'c':
-				c = va_arg(args, int);
-				_putchar(c);
-				printed_chars++;
+				val = functnptr(list);
+				count = count + val;
+				j += 2;
+				continue;
+			}
+			if (format[j + 1] == '\0')
 				break;
-			case 's':
-				str_arg = va_arg(args, char *);
-				if (!str_arg)
-					str_arg = "(null)";
-				while (*str_arg)
-				{
-					_putchar(*str_arg);
-					str_arg++;
-					printed_chars++;
-				}
-				break;
-			case '%':
-				_putchar('%');
-				printed_chars++;
-				break;
-			default:
-				_putchar('%');
-				_putchar(*format);
-				printed_chars += 2;
-				break;
+			if (format[j + 1] != '\0')
+			{
+				temp = write(1, &format[j + 1], 1);
+				count += temp;
+				j += 2;
+				continue;
 			}
 		}
-		else
-		{
-			_putchar(*format);
-			printed_chars++;
-		}
-		format++;
 	}
-	va_end(args);
-	return (printed_chars);
+	return (count);
 }
-

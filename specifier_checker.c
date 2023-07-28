@@ -12,10 +12,13 @@ int (*specifier_checker(const char *format))(va_list)
 {
 	int j;
 
-	functn_t specifier_array[4] = {
+	functn_t specifier_array[7] = {
 		{"c", print_char},
 		{"s", print_str},
 		{"%", print_pcent},
+		{"d", print_decimal},
+		{"i", print_integer},
+		{"r", print_unknown},
 		{NULL, NULL}
 	};
 	for (j = 0; specifier_array[j].t != NULL; j++)
